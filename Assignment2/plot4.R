@@ -9,5 +9,13 @@ scc <- readRDS(sccFile)
 
 allData <- merge(data, scc)
 
-dev.copy(png, file = "plot1.png")
+coalData <- allData[grep("Coal", allData$EI.Sector),]
+
+ggplot(balt_dat, aes(fill = EI.Sector, x = as.factor(year), y=Emissions, color = type)) + 
+    geom_bar(stat = "identity", position = "stack", show.legend) + 
+    labs(x = "Year", y = "Total Recorded Emissions (tons)", title = "Yearly Emissions from Coal Sources") + 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+
+
+dev.copy(png, file = "plot4.png")
 dev.off()
